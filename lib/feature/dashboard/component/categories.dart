@@ -74,7 +74,7 @@ class _Category extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          HomeImage(url: item.icons),
+          Expanded(child: HomeImage(url: item.icons)),
           Text(item.name!)
         ],
       ),

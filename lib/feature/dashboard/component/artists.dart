@@ -75,7 +75,7 @@ class _ArtistItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          HomeImage(url: item.image),
+          Expanded(child: HomeImage(url: item.image)),
           Text(item.name!)
         ],
       ),

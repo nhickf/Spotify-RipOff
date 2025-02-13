@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class HomeImage extends StatelessWidget {
   final String? url;
-  final double height = 150;
-  final double width = 150;
+  final double height = 100;
+  final double width = 100;
 
   const HomeImage({
     super.key,
     required this.url,
+
   });
 
   @override
@@ -16,6 +17,7 @@ class HomeImage extends StatelessWidget {
     if (url != null && url?.isNotEmpty == true) {
       return Image.network(
         url!,
+        fit: BoxFit.scaleDown,
         height: height,
         width: width,
       );

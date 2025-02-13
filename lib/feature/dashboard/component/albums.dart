@@ -71,11 +71,18 @@ class _AlbumItem extends StatelessWidget {
       onTap: () {
         onPressed();
       },
-      child:Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: HomeImage(url: item.image)), Text(item.label!)],
+          Expanded(child: HomeImage(url: item.image)),
+          Text(
+            item.label!,
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            maxLines: 1,
+          ),
+        ],
       ),
     );
   }
