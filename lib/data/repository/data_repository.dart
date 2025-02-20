@@ -1,5 +1,3 @@
-import 'package:floor/floor.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:spotify/core/network/response.dart';
 import 'package:spotify/data/mapper/mapper.dart';
 import 'package:spotify/data/model/favorite.dart';
@@ -77,3 +75,4 @@ class DataRepositoryImpl extends IDataRepository {
       return Stream.value(Failure(s.toString(), 0));
     }
   }
+}
