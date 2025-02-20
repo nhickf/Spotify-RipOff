@@ -9,7 +9,11 @@ part of 'service.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _SpotifyService implements SpotifyService {
-  _SpotifyService(this._dio, {this.baseUrl, this.errorLogger});
+  _SpotifyService(
+    this._dio, {
+    this.baseUrl,
+    this.errorLogger,
+  });
 
   final Dio _dio;
 
@@ -30,16 +34,22 @@ class _SpotifyService implements SpotifyService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DataResponse<BrowseCategory>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/v1/browse/categories',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
+    final _options = _setStreamType<DataResponse<BrowseCategory>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/browse/categories',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late BrowseCategory _value;
     try {
@@ -58,7 +68,11 @@ class _SpotifyService implements SpotifyService {
     int offset,
   ) {
     return NetworkResponseAdapter<BrowseCategory>().adapt(
-      () => _getBrowseCategory(locale, limit, offset),
+      () => _getBrowseCategory(
+        locale,
+        limit,
+        offset,
+      ),
     );
   }
 
@@ -67,16 +81,22 @@ class _SpotifyService implements SpotifyService {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DataResponse<PlayLists>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/v1/me/playlists',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
+    final _options = _setStreamType<DataResponse<PlayLists>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/me/playlists',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late PlayLists _value;
     try {
@@ -91,11 +111,16 @@ class _SpotifyService implements SpotifyService {
   @override
   Future<DataResponse<PlayLists>> getPlayLists(String categoryId) {
     return NetworkResponseAdapter<PlayLists>().adapt(
-      () => _getPlayLists(categoryId),
+      () => _getPlayLists(
+        categoryId,
+      ),
     );
   }
 
-  Future<Albums> _getSeveralAlbums(String listOfIds, String market) async {
+  Future<Albums> _getSeveralAlbums(
+    String listOfIds,
+    String market,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'ids': listOfIds,
@@ -103,16 +128,22 @@ class _SpotifyService implements SpotifyService {
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DataResponse<Albums>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/v1/albums',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
+    final _options = _setStreamType<DataResponse<Albums>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/albums',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late Albums _value;
     try {
@@ -130,7 +161,10 @@ class _SpotifyService implements SpotifyService {
     String market,
   ) {
     return NetworkResponseAdapter<Albums>().adapt(
-      () => _getSeveralAlbums(listOfIds, market),
+      () => _getSeveralAlbums(
+        listOfIds,
+        market,
+      ),
     );
   }
 
@@ -139,16 +173,22 @@ class _SpotifyService implements SpotifyService {
     final queryParameters = <String, dynamic>{r'ids': listOfIds};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<DataResponse<Artists>>(
-      Options(method: 'GET', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            '/v1/artists',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
+    final _options = _setStreamType<DataResponse<Artists>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/artists',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
     late Artists _value;
     try {
@@ -163,7 +203,9 @@ class _SpotifyService implements SpotifyService {
   @override
   Future<DataResponse<Artists>> getSeveralArtists(String listOfIds) {
     return NetworkResponseAdapter<Artists>().adapt(
-      () => _getSeveralArtists(listOfIds),
+      () => _getSeveralArtists(
+        listOfIds,
+      ),
     );
   }
 
@@ -180,7 +222,10 @@ class _SpotifyService implements SpotifyService {
     return requestOptions;
   }
 
-  String _combineBaseUrls(String dioBaseUrl, String? baseUrl) {
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
     if (baseUrl == null || baseUrl.trim().isEmpty) {
       return dioBaseUrl;
     }
