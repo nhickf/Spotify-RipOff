@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:spotify/data/model/category.dart';
 import 'package:spotify/feature/dashboard/component/image.dart';
 import 'package:spotify/feature/dashboard/component/title.dart';
@@ -18,12 +19,10 @@ class Categories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      child: Column(
+    return  Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ItemTitle(title: "Categories", onPressed: onShowAllClick),
+          ItemTitle(title: "Categories", showText: true ,onPressed: onShowAllClick),
           SizedBox(
               height: 150,
               child: _ListCategory(
@@ -31,7 +30,6 @@ class Categories extends StatelessWidget {
                 onPressed: onItemOnClick,
               ))
         ],
-      ),
     );
   }
 }
@@ -47,7 +45,7 @@ class _ListCategory extends StatelessWidget {
     // TODO: implement build
     return ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: items.length,
+        itemCount: 8,
         itemBuilder: (context, index) {
           var item = items[index];
           return Padding(
@@ -75,7 +73,10 @@ class _Category extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(child: HomeImage(url: item.icons)),
-          Text(item.name!)
+          Text(
+            item.name!,
+            style: Theme.of(context).textTheme.bodyMedium,
+          )
         ],
       ),
     );

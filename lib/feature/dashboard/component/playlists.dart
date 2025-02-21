@@ -1,34 +1,31 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:spotify/data/source/api_service/response/playlists.dart';
 import 'package:spotify/feature/dashboard/component/image.dart';
 import 'package:spotify/feature/dashboard/component/title.dart';
 
 class CategoryPlayLists extends StatelessWidget {
-
   final PlayLists? playLists;
   final VoidCallback onShowAllClick;
   final VoidCallback onItemOnClick;
 
-
-  const CategoryPlayLists({
-    super.key,
-    required this.playLists,
-    required this.onItemOnClick,
-    required this.onShowAllClick
-  });
+  const CategoryPlayLists(
+      {super.key,
+      required this.playLists,
+      required this.onItemOnClick,
+      required this.onShowAllClick});
 
   @override
   Widget build(BuildContext context) {
-
-     if (playLists != null) {
-       return Container(
+    if (playLists != null) {
+      return Container(
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            ItemTitle(title: playLists!.message!, onPressed: onShowAllClick),
+            ItemTitle(
+                title: playLists!.message!,
+                showText: true,
+                onPressed: onShowAllClick),
             SizedBox(
                 height: 150,
                 child: _ListPlayList(
@@ -39,10 +36,9 @@ class CategoryPlayLists extends StatelessWidget {
         ),
       );
     } else {
-       return Text("No Play Lists");
-     }
+      return Text("No Play Lists");
+    }
   }
-
 }
 
 class _ListPlayList extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:spotify/data/model/album.dart';
 import 'package:spotify/feature/dashboard/component/image.dart';
 import 'package:spotify/feature/dashboard/component/title.dart';
@@ -12,20 +12,17 @@ class Albums extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items != null) {
-      return Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ItemTitle(title: "Albums", onPressed: () => {}),
-            SizedBox(
-                height: 150,
-                child: _AlbumList(
-                  items: items!,
-                  onItemOnClick: onItemOnClick,
-                ))
-          ],
-        ),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          ItemTitle(title: "Albums", showText: false, onPressed: () => {}),
+          SizedBox(
+              height: 150,
+              child: _AlbumList(
+                items: items!,
+                onItemOnClick: onItemOnClick,
+              ))
+        ],
       );
     } else {
       return Text("No albums");
@@ -72,7 +69,7 @@ class _AlbumItem extends StatelessWidget {
         onPressed();
       },
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(child: HomeImage(url: item.image)),
           Text(
@@ -81,6 +78,7 @@ class _AlbumItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             softWrap: true,
             maxLines: 1,
+            style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
       ),
