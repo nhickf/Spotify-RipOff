@@ -25,6 +25,7 @@ mixin _$Track {
   bool? get isLocal => throw _privateConstructorUsedError;
   bool? get explicit => throw _privateConstructorUsedError;
   List<Artist>? get artists => throw _privateConstructorUsedError;
+  Album? get album => throw _privateConstructorUsedError;
 
   /// Create a copy of Track
   /// with the given fields replaced by the non-null parameter values.
@@ -46,7 +47,10 @@ abstract class $TrackCopyWith<$Res> {
       int? trackNumber,
       bool? isLocal,
       bool? explicit,
-      List<Artist>? artists});
+      List<Artist>? artists,
+      Album? album});
+
+  $AlbumCopyWith<$Res>? get album;
 }
 
 /// @nodoc
@@ -73,6 +77,7 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
     Object? isLocal = freezed,
     Object? explicit = freezed,
     Object? artists = freezed,
+    Object? album = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -111,7 +116,25 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<Artist>?,
+      album: freezed == album
+          ? _value.album
+          : album // ignore: cast_nullable_to_non_nullable
+              as Album?,
     ) as $Val);
+  }
+
+  /// Create a copy of Track
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AlbumCopyWith<$Res>? get album {
+    if (_value.album == null) {
+      return null;
+    }
+
+    return $AlbumCopyWith<$Res>(_value.album!, (value) {
+      return _then(_value.copyWith(album: value) as $Val);
+    });
   }
 }
 
@@ -131,7 +154,11 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
       int? trackNumber,
       bool? isLocal,
       bool? explicit,
-      List<Artist>? artists});
+      List<Artist>? artists,
+      Album? album});
+
+  @override
+  $AlbumCopyWith<$Res>? get album;
 }
 
 /// @nodoc
@@ -156,6 +183,7 @@ class __$$TrackImplCopyWithImpl<$Res>
     Object? isLocal = freezed,
     Object? explicit = freezed,
     Object? artists = freezed,
+    Object? album = freezed,
   }) {
     return _then(_$TrackImpl(
       id: freezed == id
@@ -194,6 +222,10 @@ class __$$TrackImplCopyWithImpl<$Res>
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<Artist>?,
+      album: freezed == album
+          ? _value.album
+          : album // ignore: cast_nullable_to_non_nullable
+              as Album?,
     ));
   }
 }
@@ -210,7 +242,8 @@ class _$TrackImpl implements _Track {
       this.trackNumber,
       this.isLocal,
       this.explicit,
-      final List<Artist>? artists})
+      final List<Artist>? artists,
+      this.album})
       : _artists = artists;
 
   @override
@@ -240,8 +273,11 @@ class _$TrackImpl implements _Track {
   }
 
   @override
+  final Album? album;
+
+  @override
   String toString() {
-    return 'Track(id: $id, name: $name, previewUrl: $previewUrl, type: $type, uri: $uri, trackNumber: $trackNumber, isLocal: $isLocal, explicit: $explicit, artists: $artists)';
+    return 'Track(id: $id, name: $name, previewUrl: $previewUrl, type: $type, uri: $uri, trackNumber: $trackNumber, isLocal: $isLocal, explicit: $explicit, artists: $artists, album: $album)';
   }
 
   @override
@@ -260,7 +296,8 @@ class _$TrackImpl implements _Track {
             (identical(other.isLocal, isLocal) || other.isLocal == isLocal) &&
             (identical(other.explicit, explicit) ||
                 other.explicit == explicit) &&
-            const DeepCollectionEquality().equals(other._artists, _artists));
+            const DeepCollectionEquality().equals(other._artists, _artists) &&
+            (identical(other.album, album) || other.album == album));
   }
 
   @override
@@ -274,7 +311,8 @@ class _$TrackImpl implements _Track {
       trackNumber,
       isLocal,
       explicit,
-      const DeepCollectionEquality().hash(_artists));
+      const DeepCollectionEquality().hash(_artists),
+      album);
 
   /// Create a copy of Track
   /// with the given fields replaced by the non-null parameter values.
@@ -295,7 +333,8 @@ abstract class _Track implements Track {
       final int? trackNumber,
       final bool? isLocal,
       final bool? explicit,
-      final List<Artist>? artists}) = _$TrackImpl;
+      final List<Artist>? artists,
+      final Album? album}) = _$TrackImpl;
 
   @override
   String? get id;
@@ -315,6 +354,8 @@ abstract class _Track implements Track {
   bool? get explicit;
   @override
   List<Artist>? get artists;
+  @override
+  Album? get album;
 
   /// Create a copy of Track
   /// with the given fields replaced by the non-null parameter values.

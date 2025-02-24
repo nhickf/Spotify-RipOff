@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/data/model/album.dart';
+import 'package:spotify/data/model/artist.dart';
 import 'package:spotify/data/model/category.dart';
+import 'package:spotify/data/model/favorite.dart';
 import 'package:spotify/feature/dashboard/component/albums.dart';
 import 'package:spotify/feature/dashboard/component/artists.dart';
 import 'package:spotify/feature/dashboard/component/categories.dart';
@@ -9,16 +11,12 @@ import 'package:spotify/feature/dashboard/component/favorites.dart';
 import 'package:spotify/feature/dashboard/dashboard_bloc.dart';
 import 'package:spotify/feature/dashboard/dashboard_event.dart';
 import 'package:spotify/feature/dashboard/dashboard_state.dart';
+import 'package:spotify/feature/dashboard/nav/dashboard_route.dart';
 
 class DashboardScreen extends StatelessWidget {
-  final Function(Album album) onNavigateToSongList;
-  final Function(List<Category> categories) onNavigateToCategoryList;
+  final Function(DashboardRoute route) onNavigateOutsideDashboard;
 
-  const DashboardScreen({
-    super.key,
-    required this.onNavigateToCategoryList,
-    required this.onNavigateToSongList,
-  });
+  const DashboardScreen({super.key, required this.onNavigateOutsideDashboard});
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +24,34 @@ class DashboardScreen extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: _DashboardContainer(
-        onNavigateToCategoryList: onNavigateToCategoryList,
-        onNavigateToSongList: onNavigateToSongList,
+        onNavigateToCategoryList: (categories) {
+          onNavigateOutsideDashboard(CategoryList(categories: categories));
+        },
+        onNavigateAlbumToSongList: (album) {
+          onNavigateOutsideDashboard(AlbumToSongList(album: album));
+        },
+        onNavigateArtistToSongList: (artist) {
+          onNavigateOutsideDashboard(ArtistsToSongList(artist: artist));
+        },
+        onNavigateToFavoriteList: (favorites) {
+          onNavigateOutsideDashboard(FavoriteList(favorites: favorites));
+        },
       ),
     );
   }
 }
 
 class _DashboardContainer extends StatelessWidget {
-  final Function(Album album) onNavigateToSongList;
+  final Function(Album album) onNavigateAlbumToSongList;
+  final Function(Artist artist) onNavigateArtistToSongList;
   final Function(List<Category> categories) onNavigateToCategoryList;
+  final Function(List<Favorite> favorites) onNavigateToFavoriteList;
 
   const _DashboardContainer({
-    required this.onNavigateToSongList,
+    required this.onNavigateAlbumToSongList,
+    required this.onNavigateArtistToSongList,
     required this.onNavigateToCategoryList,
+    required this.onNavigateToFavoriteList,
   });
 
   @override
@@ -73,15 +85,25 @@ class _DashboardContainer extends StatelessWidget {
                           items: state.categories!),
                       Albums(
                         items: state.albums,
-                        onItemOnClick: onNavigateToSongList,
+                        onItemOnClick: onNavigateAlbumToSongList,
                       ),
                       Artists(
                         items: state.artists,
                         onItemOnClick: (artist) {
-                          print('GestureDetector onItemOnClick!');
+                          if (artist.id != null) {
+                            onNavigateArtistToSongList(artist);
+                          }
                         },
                       ),
-                      Favorites()
+                      Favorites(
+                        list: state.favorites,
+                        onNavigateToFavoriteList: () {
+                          if (state.favorites != null &&
+                              state.favorites!.isNotEmpty) {
+                            onNavigateToFavoriteList(state.favorites!);
+                          }
+                        },
+                      )
                     ],
                   ),
                 ));

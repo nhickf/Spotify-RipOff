@@ -9,6 +9,9 @@ import 'package:spotify/data/repository/data_repository.dart';
 import 'package:spotify/feature/categorylist/category_list_bloc.dart';
 import 'package:spotify/feature/categorylist/category_list_state.dart';
 import 'package:spotify/feature/dashboard/dashboard_bloc.dart';
+import 'package:spotify/feature/favoritelist/favorite_list_bloc.dart';
+import 'package:spotify/feature/favoritelist/favorite_list_state.dart';
+import 'package:spotify/feature/songlist/song_list_bloc.dart';
 import 'package:spotify/navigation/app_navigation.dart';
 
 import 'feature/dashboard/dashboard_event.dart';
@@ -16,9 +19,14 @@ import 'feature/dashboard/dashboard_event.dart';
 void main() async {
   GetIt di = GetIt.instance;
   // initialize dependencies
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   storageDependency(di);
   networkDependencies(di);
   dataDependencies(di);
+
+  await di.allReady();
 
   runApp(MaterialApp(
     title: 'Flutter Demo',
@@ -72,17 +80,23 @@ class SpotifyScreen extends StatelessWidget {
   }) : _dataRepository = dataRepository;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return RepositoryProvider.value(
       value: _dataRepository,
       child: MultiBlocProvider(
         providers: [
           BlocProvider<DashboardBloc>(
-            create: (context) => DashboardBloc(context.read<IDataRepository>())..add(Initial()),
+            create: (context) =>
+                DashboardBloc(context.read<IDataRepository>())..add(Initial()),
           ),
           BlocProvider<CategoryListBloc>(
-            create: (context) => CategoryListBloc(CategoryListState()),
-          )
+            create: (_) => CategoryListBloc(CategoryListState()),
+          ),
+          BlocProvider<SongListBloc>(
+            create: (context) => SongListBloc(context.read<IDataRepository>()),
+          ),
+          BlocProvider<FavoriteListBloc>(
+              create: (_) => FavoriteListBloc(FavoriteListState()))
         ],
         child: AppNavigator(),
       ),

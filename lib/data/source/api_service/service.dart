@@ -7,6 +7,7 @@ import 'package:spotify/data/source/api_service/response/albums.dart';
 import 'package:spotify/data/source/api_service/response/artists.dart';
 import 'package:spotify/data/source/api_service/response/browse_category.dart';
 import 'package:spotify/data/source/api_service/response/playlists.dart';
+import 'package:spotify/data/source/api_service/response/tracks.dart';
 
 part 'service.g.dart';
 
@@ -36,5 +37,15 @@ abstract class SpotifyService {
   @GET(getArtists)
   Future<DataResponse<Artists>> getSeveralArtists(
     @Query('ids') String listOfIds,
+  );
+
+  @GET(getSeveralTracks)
+  Future<DataResponse<Tracks>> getTracks(
+    @Query('ids') String listOfIds,
+  );
+
+  @GET(getArtistTopTracks)
+  Future<DataResponse<Tracks>> getArtistTracks(
+    @Path('id') String id,
   );
 }

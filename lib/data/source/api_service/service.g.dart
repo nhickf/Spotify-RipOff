@@ -209,6 +209,88 @@ class _SpotifyService implements SpotifyService {
     );
   }
 
+  Future<Tracks> _getTracks(String listOfIds) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'ids': listOfIds};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<DataResponse<Tracks>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/tracks',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late Tracks _value;
+    try {
+      _value = Tracks.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DataResponse<Tracks>> getTracks(String listOfIds) {
+    return NetworkResponseAdapter<Tracks>().adapt(
+      () => _getTracks(
+        listOfIds,
+      ),
+    );
+  }
+
+  Future<Tracks> _getArtistTracks(String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<DataResponse<Tracks>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          '/v1/artists/${id}/top-tracks',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        )));
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late Tracks _value;
+    try {
+      _value = Tracks.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<DataResponse<Tracks>> getArtistTracks(String id) {
+    return NetworkResponseAdapter<Tracks>().adapt(
+      () => _getArtistTracks(
+        id,
+      ),
+    );
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

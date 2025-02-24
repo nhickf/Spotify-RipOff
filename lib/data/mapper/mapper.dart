@@ -1,3 +1,4 @@
+
 import 'package:spotify/data/model/album.dart' as model_album;
 import 'package:spotify/data/model/favorite.dart';
 import 'package:spotify/data/model/page.dart';
@@ -37,12 +38,27 @@ extension AlbumMapper on Albums {
       .toList();
 }
 
+extension AlbumItem on Album {
+  model_album.Album get transform => model_album.Album(
+        id: id,
+        label: label,
+        image: images?.first.url,
+        uri: uri,
+        totalTracks: totalTracks,
+        tracks: tracks?.transform,
+      );
+}
+
 extension TrackMapper on Tracks {
-  Page<model_track.Track> get transform => Page<model_track.Track>(
-      offset: offset!,
-      limit: limit!,
-      item: items
-          ?.map((track) => model_track.Track(
+  Page<model_track.Track> get transform {
+
+
+    return Page<model_track.Track>(
+      offset: offset ?? 0,
+      limit: limit ?? 0,
+      item: (items ?? tracks)
+          ?.map(
+            (track) => model_track.Track(
               id: track.id,
               name: track.name,
               previewUrl: track.previewUrl,
@@ -51,9 +67,14 @@ extension TrackMapper on Tracks {
               trackNumber: track.trackNumber,
               isLocal: track.isLocal,
               explicit: track.explicit,
+              album: track.album?.transform,
               artists:
-                  track.artists?.map((artist) => artist.transform).toList()))
-          .toList());
+                  track.artists?.map((artist) => artist.transform).toList(),
+            ),
+          )
+          .toList(),
+    );
+  }
 }
 
 extension ArtistMapper on Artist {
@@ -74,4 +95,12 @@ extension FavoriteEntityMapper on FavoriteEntity {
 extension FavoriteMapper on Favorite {
   FavoriteEntity get transform => FavoriteEntity(
       uId: id, name: name, imageUrl: imageUrl, timeStamp: timeStamp);
+}
+
+extension TrackToFavoriteMapper on model_track.Track {
+  Favorite get transform => Favorite(
+      id: id!,
+      name: name!,
+      imageUrl: album!.image ?? "https://picsum.photos/500/500",
+      timeStamp: DateTime.timestamp().toString());
 }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spotify/data/source/api_service/response/albums.dart';
 import 'package:spotify/data/source/api_service/response/artists.dart';
 import 'package:spotify/data/source/api_service/response/external_url.dart';
 import 'package:spotify/data/source/api_service/response/linkedfrom.dart';
@@ -18,6 +19,7 @@ class Tracks with _$Tracks {
     String? next,
     String? previous,
     List<Track>? items,
+    List<Track>? tracks
   }) = _Tracks;
 
   factory Tracks.fromJson(Map<String, dynamic> json) => _$TracksFromJson(json);
@@ -28,6 +30,7 @@ class Tracks with _$Tracks {
 class Track with _$Track {
   factory Track({
     List<Artist>? artists,
+    Album? album,
     @JsonKey(name: "available_markets") List<String>? availableMarkets,
     @JsonKey(name: "disc_number") int? discNumber,
     @JsonKey(name: "duration_ms") int? durationMs,

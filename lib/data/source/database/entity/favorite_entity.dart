@@ -1,9 +1,7 @@
 
-import 'dart:ffi';
-
 import 'package:floor/floor.dart';
 
-@entity
+@Entity(tableName: "favorites")
 class FavoriteEntity {
   @primaryKey
   String uId;

@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 
 class PlayerController extends StatelessWidget {
-  const PlayerController({super.key});
+  final String title;
+  final String description;
+
+  const PlayerController(
+      {super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(
       children: [
-        _PlayerHeader(),
+        _PlayerHeader(
+          title: title,
+          description: description,
+        ),
       ],
     );
   }
 }
 
 class _PlayerHeader extends StatelessWidget {
+  final String title;
+  final String description;
+
+  const _PlayerHeader({required this.title, required this.description});
+
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,7 +40,7 @@ class _PlayerHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  "The most interesting tracks in the current world of pop music"),
+                  "The most interesting tracks of ""$title"),
               Row(
                 spacing: 8,
                 children: [
@@ -37,10 +49,9 @@ class _PlayerHeader extends StatelessWidget {
                     height: 24,
                     width: 24,
                   ),
-                  Text("Made for Tutifruti")
+                  Text(description)
                 ],
               ),
-              Text("1,055,189 saves * 5h 14min"),
             ],
           ),
         ),
@@ -66,8 +77,8 @@ class _PlayerHeader extends StatelessWidget {
                   onPressed: () {},
                   iconSize: 48,
                   icon: Icon(
-                      Icons.play_circle_fill_outlined,
-                      color: Color(0xff1ed760),
+                    Icons.play_circle_fill_outlined,
+                    color: Color(0xff1ed760),
                   ),
 
                 ),

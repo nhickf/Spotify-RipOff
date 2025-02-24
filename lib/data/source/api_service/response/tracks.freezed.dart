@@ -27,6 +27,7 @@ mixin _$Tracks {
   String? get next => throw _privateConstructorUsedError;
   String? get previous => throw _privateConstructorUsedError;
   List<Track>? get items => throw _privateConstructorUsedError;
+  List<Track>? get tracks => throw _privateConstructorUsedError;
 
   /// Serializes this Tracks to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $TracksCopyWith<$Res> {
       int? offset,
       String? next,
       String? previous,
-      List<Track>? items});
+      List<Track>? items,
+      List<Track>? tracks});
 }
 
 /// @nodoc
@@ -74,6 +76,7 @@ class _$TracksCopyWithImpl<$Res, $Val extends Tracks>
     Object? next = freezed,
     Object? previous = freezed,
     Object? items = freezed,
+    Object? tracks = freezed,
   }) {
     return _then(_value.copyWith(
       href: freezed == href
@@ -104,6 +107,10 @@ class _$TracksCopyWithImpl<$Res, $Val extends Tracks>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Track>?,
+      tracks: freezed == tracks
+          ? _value.tracks
+          : tracks // ignore: cast_nullable_to_non_nullable
+              as List<Track>?,
     ) as $Val);
   }
 }
@@ -122,7 +129,8 @@ abstract class _$$TracksImplCopyWith<$Res> implements $TracksCopyWith<$Res> {
       int? offset,
       String? next,
       String? previous,
-      List<Track>? items});
+      List<Track>? items,
+      List<Track>? tracks});
 }
 
 /// @nodoc
@@ -145,6 +153,7 @@ class __$$TracksImplCopyWithImpl<$Res>
     Object? next = freezed,
     Object? previous = freezed,
     Object? items = freezed,
+    Object? tracks = freezed,
   }) {
     return _then(_$TracksImpl(
       href: freezed == href
@@ -175,6 +184,10 @@ class __$$TracksImplCopyWithImpl<$Res>
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Track>?,
+      tracks: freezed == tracks
+          ? _value._tracks
+          : tracks // ignore: cast_nullable_to_non_nullable
+              as List<Track>?,
     ));
   }
 }
@@ -189,8 +202,10 @@ class _$TracksImpl implements _Tracks {
       this.offset,
       this.next,
       this.previous,
-      final List<Track>? items})
-      : _items = items;
+      final List<Track>? items,
+      final List<Track>? tracks})
+      : _items = items,
+        _tracks = tracks;
 
   factory _$TracksImpl.fromJson(Map<String, dynamic> json) =>
       _$$TracksImplFromJson(json);
@@ -217,9 +232,19 @@ class _$TracksImpl implements _Tracks {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Track>? _tracks;
+  @override
+  List<Track>? get tracks {
+    final value = _tracks;
+    if (value == null) return null;
+    if (_tracks is EqualUnmodifiableListView) return _tracks;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'Tracks(href: $href, total: $total, limit: $limit, offset: $offset, next: $next, previous: $previous, items: $items)';
+    return 'Tracks(href: $href, total: $total, limit: $limit, offset: $offset, next: $next, previous: $previous, items: $items, tracks: $tracks)';
   }
 
   @override
@@ -234,13 +259,22 @@ class _$TracksImpl implements _Tracks {
             (identical(other.next, next) || other.next == next) &&
             (identical(other.previous, previous) ||
                 other.previous == previous) &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality().equals(other._tracks, _tracks));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, href, total, limit, offset, next,
-      previous, const DeepCollectionEquality().hash(_items));
+  int get hashCode => Object.hash(
+      runtimeType,
+      href,
+      total,
+      limit,
+      offset,
+      next,
+      previous,
+      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(_tracks));
 
   /// Create a copy of Tracks
   /// with the given fields replaced by the non-null parameter values.
@@ -266,7 +300,8 @@ abstract class _Tracks implements Tracks {
       final int? offset,
       final String? next,
       final String? previous,
-      final List<Track>? items}) = _$TracksImpl;
+      final List<Track>? items,
+      final List<Track>? tracks}) = _$TracksImpl;
 
   factory _Tracks.fromJson(Map<String, dynamic> json) = _$TracksImpl.fromJson;
 
@@ -284,6 +319,8 @@ abstract class _Tracks implements Tracks {
   String? get previous;
   @override
   List<Track>? get items;
+  @override
+  List<Track>? get tracks;
 
   /// Create a copy of Tracks
   /// with the given fields replaced by the non-null parameter values.
@@ -300,6 +337,7 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Track {
   List<Artist>? get artists => throw _privateConstructorUsedError;
+  Album? get album => throw _privateConstructorUsedError;
   @JsonKey(name: "available_markets")
   List<String>? get availableMarkets => throw _privateConstructorUsedError;
   @JsonKey(name: "disc_number")
@@ -341,6 +379,7 @@ abstract class $TrackCopyWith<$Res> {
   @useResult
   $Res call(
       {List<Artist>? artists,
+      Album? album,
       @JsonKey(name: "available_markets") List<String>? availableMarkets,
       @JsonKey(name: "disc_number") int? discNumber,
       @JsonKey(name: "duration_ms") int? durationMs,
@@ -358,6 +397,7 @@ abstract class $TrackCopyWith<$Res> {
       String? uri,
       @JsonKey(name: "is_local") bool? isLocal});
 
+  $AlbumCopyWith<$Res>? get album;
   $ExternalUrlCopyWith<$Res>? get externalUrl;
   $LinkedFromCopyWith<$Res>? get linkedFrom;
   $RestrictionCopyWith<$Res>? get restriction;
@@ -379,6 +419,7 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
   @override
   $Res call({
     Object? artists = freezed,
+    Object? album = freezed,
     Object? availableMarkets = freezed,
     Object? discNumber = freezed,
     Object? durationMs = freezed,
@@ -401,6 +442,10 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<Artist>?,
+      album: freezed == album
+          ? _value.album
+          : album // ignore: cast_nullable_to_non_nullable
+              as Album?,
       availableMarkets: freezed == availableMarkets
           ? _value.availableMarkets
           : availableMarkets // ignore: cast_nullable_to_non_nullable
@@ -472,6 +517,20 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $AlbumCopyWith<$Res>? get album {
+    if (_value.album == null) {
+      return null;
+    }
+
+    return $AlbumCopyWith<$Res>(_value.album!, (value) {
+      return _then(_value.copyWith(album: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Track
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
   $ExternalUrlCopyWith<$Res>? get externalUrl {
     if (_value.externalUrl == null) {
       return null;
@@ -520,6 +579,7 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
   @useResult
   $Res call(
       {List<Artist>? artists,
+      Album? album,
       @JsonKey(name: "available_markets") List<String>? availableMarkets,
       @JsonKey(name: "disc_number") int? discNumber,
       @JsonKey(name: "duration_ms") int? durationMs,
@@ -537,6 +597,8 @@ abstract class _$$TrackImplCopyWith<$Res> implements $TrackCopyWith<$Res> {
       String? uri,
       @JsonKey(name: "is_local") bool? isLocal});
 
+  @override
+  $AlbumCopyWith<$Res>? get album;
   @override
   $ExternalUrlCopyWith<$Res>? get externalUrl;
   @override
@@ -559,6 +621,7 @@ class __$$TrackImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? artists = freezed,
+    Object? album = freezed,
     Object? availableMarkets = freezed,
     Object? discNumber = freezed,
     Object? durationMs = freezed,
@@ -581,6 +644,10 @@ class __$$TrackImplCopyWithImpl<$Res>
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<Artist>?,
+      album: freezed == album
+          ? _value.album
+          : album // ignore: cast_nullable_to_non_nullable
+              as Album?,
       availableMarkets: freezed == availableMarkets
           ? _value._availableMarkets
           : availableMarkets // ignore: cast_nullable_to_non_nullable
@@ -654,6 +721,7 @@ class __$$TrackImplCopyWithImpl<$Res>
 class _$TrackImpl implements _Track {
   _$TrackImpl(
       {final List<Artist>? artists,
+      this.album,
       @JsonKey(name: "available_markets") final List<String>? availableMarkets,
       @JsonKey(name: "disc_number") this.discNumber,
       @JsonKey(name: "duration_ms") this.durationMs,
@@ -686,6 +754,8 @@ class _$TrackImpl implements _Track {
     return EqualUnmodifiableListView(value);
   }
 
+  @override
+  final Album? album;
   final List<String>? _availableMarkets;
   @override
   @JsonKey(name: "available_markets")
@@ -738,7 +808,7 @@ class _$TrackImpl implements _Track {
 
   @override
   String toString() {
-    return 'Track(artists: $artists, availableMarkets: $availableMarkets, discNumber: $discNumber, durationMs: $durationMs, explicit: $explicit, externalUrl: $externalUrl, href: $href, id: $id, isPlayable: $isPlayable, linkedFrom: $linkedFrom, restriction: $restriction, name: $name, previewUrl: $previewUrl, trackNumber: $trackNumber, type: $type, uri: $uri, isLocal: $isLocal)';
+    return 'Track(artists: $artists, album: $album, availableMarkets: $availableMarkets, discNumber: $discNumber, durationMs: $durationMs, explicit: $explicit, externalUrl: $externalUrl, href: $href, id: $id, isPlayable: $isPlayable, linkedFrom: $linkedFrom, restriction: $restriction, name: $name, previewUrl: $previewUrl, trackNumber: $trackNumber, type: $type, uri: $uri, isLocal: $isLocal)';
   }
 
   @override
@@ -747,6 +817,7 @@ class _$TrackImpl implements _Track {
         (other.runtimeType == runtimeType &&
             other is _$TrackImpl &&
             const DeepCollectionEquality().equals(other._artists, _artists) &&
+            (identical(other.album, album) || other.album == album) &&
             const DeepCollectionEquality()
                 .equals(other._availableMarkets, _availableMarkets) &&
             (identical(other.discNumber, discNumber) ||
@@ -780,6 +851,7 @@ class _$TrackImpl implements _Track {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_artists),
+      album,
       const DeepCollectionEquality().hash(_availableMarkets),
       discNumber,
       durationMs,
@@ -816,6 +888,7 @@ class _$TrackImpl implements _Track {
 abstract class _Track implements Track {
   factory _Track(
       {final List<Artist>? artists,
+      final Album? album,
       @JsonKey(name: "available_markets") final List<String>? availableMarkets,
       @JsonKey(name: "disc_number") final int? discNumber,
       @JsonKey(name: "duration_ms") final int? durationMs,
@@ -837,6 +910,8 @@ abstract class _Track implements Track {
 
   @override
   List<Artist>? get artists;
+  @override
+  Album? get album;
   @override
   @JsonKey(name: "available_markets")
   List<String>? get availableMarkets;

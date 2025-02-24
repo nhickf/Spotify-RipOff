@@ -1,5 +1,6 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:spotify/data/model/album.dart';
 import 'package:spotify/data/model/artist.dart';
 
 part 'track.freezed.dart';
@@ -16,7 +17,8 @@ class Track with _$Track {
     int? trackNumber,
     bool? isLocal,
     bool? explicit,
-    List<Artist>? artists
+    List<Artist>? artists,
+    Album? album,
 }) = _Track;
 
 }

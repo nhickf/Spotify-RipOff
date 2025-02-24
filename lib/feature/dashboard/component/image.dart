@@ -18,8 +18,6 @@ class HomeImage extends StatelessWidget {
       return Image.network(
         url!,
         fit: BoxFit.scaleDown,
-        height: height,
-        width: width,
       );
     }
     return CircularProgressIndicator();

@@ -24,6 +24,7 @@ mixin _$DashboardState {
   PlayLists? get playList => throw _privateConstructorUsedError;
   List<Album>? get albums => throw _privateConstructorUsedError;
   List<Artist>? get artists => throw _privateConstructorUsedError;
+  List<Favorite>? get favorites => throw _privateConstructorUsedError;
   Error? get error => throw _privateConstructorUsedError;
 
   /// Create a copy of DashboardState
@@ -48,6 +49,7 @@ abstract class $DashboardStateCopyWith<$Res> {
       PlayLists? playList,
       List<Album>? albums,
       List<Artist>? artists,
+      List<Favorite>? favorites,
       Error? error});
 
   $PlayListsCopyWith<$Res>? get playList;
@@ -77,6 +79,7 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
     Object? playList = freezed,
     Object? albums = freezed,
     Object? artists = freezed,
+    Object? favorites = freezed,
     Object? error = freezed,
   }) {
     return _then(_value.copyWith(
@@ -112,6 +115,10 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
           ? _value.artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<Artist>?,
+      favorites: freezed == favorites
+          ? _value.favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<Favorite>?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -165,6 +172,7 @@ abstract class _$$DashboardStateImplCopyWith<$Res>
       PlayLists? playList,
       List<Album>? albums,
       List<Artist>? artists,
+      List<Favorite>? favorites,
       Error? error});
 
   @override
@@ -194,6 +202,7 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
     Object? playList = freezed,
     Object? albums = freezed,
     Object? artists = freezed,
+    Object? favorites = freezed,
     Object? error = freezed,
   }) {
     return _then(_$DashboardStateImpl(
@@ -229,6 +238,10 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
           ? _value._artists
           : artists // ignore: cast_nullable_to_non_nullable
               as List<Artist>?,
+      favorites: freezed == favorites
+          ? _value._favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<Favorite>?,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -249,10 +262,12 @@ class _$DashboardStateImpl implements _DashboardState {
       this.playList,
       final List<Album>? albums,
       final List<Artist>? artists,
+      final List<Favorite>? favorites,
       this.error})
       : _categories = categories,
         _albums = albums,
-        _artists = artists;
+        _artists = artists,
+        _favorites = favorites;
 
   @override
   @JsonKey()
@@ -298,12 +313,22 @@ class _$DashboardStateImpl implements _DashboardState {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<Favorite>? _favorites;
+  @override
+  List<Favorite>? get favorites {
+    final value = _favorites;
+    if (value == null) return null;
+    if (_favorites is EqualUnmodifiableListView) return _favorites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Error? error;
 
   @override
   String toString() {
-    return 'DashboardState(isLoading: $isLoading, locale: $locale, limit: $limit, offset: $offset, categories: $categories, playList: $playList, albums: $albums, artists: $artists, error: $error)';
+    return 'DashboardState(isLoading: $isLoading, locale: $locale, limit: $limit, offset: $offset, categories: $categories, playList: $playList, albums: $albums, artists: $artists, favorites: $favorites, error: $error)';
   }
 
   @override
@@ -322,6 +347,8 @@ class _$DashboardStateImpl implements _DashboardState {
                 other.playList == playList) &&
             const DeepCollectionEquality().equals(other._albums, _albums) &&
             const DeepCollectionEquality().equals(other._artists, _artists) &&
+            const DeepCollectionEquality()
+                .equals(other._favorites, _favorites) &&
             (identical(other.error, error) || other.error == error));
   }
 
@@ -336,6 +363,7 @@ class _$DashboardStateImpl implements _DashboardState {
       playList,
       const DeepCollectionEquality().hash(_albums),
       const DeepCollectionEquality().hash(_artists),
+      const DeepCollectionEquality().hash(_favorites),
       error);
 
   /// Create a copy of DashboardState
@@ -358,6 +386,7 @@ abstract class _DashboardState implements DashboardState {
       final PlayLists? playList,
       final List<Album>? albums,
       final List<Artist>? artists,
+      final List<Favorite>? favorites,
       final Error? error}) = _$DashboardStateImpl;
 
   @override
@@ -376,6 +405,8 @@ abstract class _DashboardState implements DashboardState {
   List<Album>? get albums;
   @override
   List<Artist>? get artists;
+  @override
+  List<Favorite>? get favorites;
   @override
   Error? get error;
 

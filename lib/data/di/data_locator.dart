@@ -3,23 +3,19 @@ import 'package:spotify/constant/constant.dart';
 import 'package:spotify/data/repository/data_repository.dart';
 import 'package:spotify/data/source/api_service/service.dart';
 import 'package:spotify/data/source/database/app_database.dart';
-import 'package:spotify/data/source/database/dao/favorite_dao.dart';
 
 void dataDependencies(GetIt di) {
   di.registerLazySingleton<SpotifyService>(() {
     return SpotifyService(di.get(instanceName: baseClientInstanceKey));
   });
 
-  di.registerLazySingletonAsync<AppDatabase>(() {
+  di.registerSingletonAsync<AppDatabase>(() {
     return $FloorAppDatabase.databaseBuilder("app_database.db").build();
   });
 
-  di.registerLazySingleton<FavoriteDao>(() {
-    return di.get<AppDatabase>().favoriteDao;
-  });
-
-  di.registerLazySingleton<IDataRepository>(() {
+  di.registerSingletonAsync<IDataRepository>(() async {
+    final db = await di.getAsync<AppDatabase>();
     return DataRepositoryImpl(
-        apiService: di.get<SpotifyService>(), dao: di.get<FavoriteDao>());
+        apiService: di.get<SpotifyService>(), dao: db.favoriteDao);
   });
 }

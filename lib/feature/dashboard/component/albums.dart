@@ -64,24 +64,30 @@ class _AlbumItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return GestureDetector(
       onTap: () {
         onPressed();
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(child: HomeImage(url: item.image)),
-          Text(
-            item.label!,
-            textAlign: TextAlign.start,
-            overflow: TextOverflow.ellipsis,
-            softWrap: true,
-            maxLines: 1,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ],
-      ),
+      child: SizedBox(
+        height: 100,
+        width: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Expanded(child: HomeImage(url: item.image)),
+            Text(
+              item.label!,
+              textAlign: TextAlign.start,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          ],
+        ),
+      )
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:spotify/data/model/category.dart';
 import 'package:spotify/feature/dashboard/component/image.dart';
 import 'package:spotify/feature/dashboard/component/title.dart';
@@ -45,7 +44,7 @@ class _ListCategory extends StatelessWidget {
     // TODO: implement build
     return ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: 8,
+        itemCount: items.take(8).length,
         itemBuilder: (context, index) {
           var item = items[index];
           return Padding(
@@ -69,16 +68,20 @@ class _Category extends StatelessWidget {
       onTap: () {
         onPressed(item.id!);
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(child: HomeImage(url: item.icons)),
-          Text(
-            item.name!,
-            style: Theme.of(context).textTheme.bodyMedium,
-          )
-        ],
-      ),
+      child: SizedBox(
+        height: 100,
+        width: 100,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(child: HomeImage(url: item.icons)),
+            Text(
+              item.name!,
+              style: Theme.of(context).textTheme.bodyMedium,
+            )
+          ],
+        ),
+      )
     );
   }
 }

@@ -16,6 +16,9 @@ _$TracksImpl _$$TracksImplFromJson(Map<String, dynamic> json) => _$TracksImpl(
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => Track.fromJson(e as Map<String, dynamic>))
           .toList(),
+      tracks: (json['tracks'] as List<dynamic>?)
+          ?.map((e) => Track.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$TracksImplToJson(_$TracksImpl instance) =>
@@ -27,12 +30,16 @@ Map<String, dynamic> _$$TracksImplToJson(_$TracksImpl instance) =>
       'next': instance.next,
       'previous': instance.previous,
       'items': instance.items,
+      'tracks': instance.tracks,
     };
 
 _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
       artists: (json['artists'] as List<dynamic>?)
           ?.map((e) => Artist.fromJson(e as Map<String, dynamic>))
           .toList(),
+      album: json['album'] == null
+          ? null
+          : Album.fromJson(json['album'] as Map<String, dynamic>),
       availableMarkets: (json['available_markets'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
@@ -62,6 +69,7 @@ _$TrackImpl _$$TrackImplFromJson(Map<String, dynamic> json) => _$TrackImpl(
 Map<String, dynamic> _$$TrackImplToJson(_$TrackImpl instance) =>
     <String, dynamic>{
       'artists': instance.artists,
+      'album': instance.album,
       'available_markets': instance.availableMarkets,
       'disc_number': instance.discNumber,
       'duration_ms': instance.durationMs,
