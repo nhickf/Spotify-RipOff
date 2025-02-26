@@ -134,7 +134,7 @@ class _CategoryGrid extends StatelessWidget {
                       item.name!,
                       textAlign: TextAlign.center,
                       maxLines: 1,
-                      overflow: TextOverflow.fade,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium,
                     )),
                 Flexible(
