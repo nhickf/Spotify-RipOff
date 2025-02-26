@@ -29,7 +29,10 @@ class Favorites extends StatelessWidget {
         ],
       );
     } else {
-      return SizedBox.shrink();
+      return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        ItemTitle(title: "Favorites", showText: false, onPressed: () {}),
+        SizedBox(height: 150)
+      ]);
     }
   }
 }

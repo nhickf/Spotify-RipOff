@@ -4,44 +4,50 @@ import 'package:spotify/feature/dashboard/component/image.dart';
 import 'package:spotify/feature/dashboard/component/title.dart';
 
 class Categories extends StatelessWidget {
-  final VoidCallback onShowAllClick;
-  final Function(String categoryId) onItemOnClick;
-
-  final List<Category> items;
+  final Function(List<Category> categories) onShowAllClick;
+  final List<Category>? items;
 
   const Categories({
     super.key,
     required this.items,
-    required this.onItemOnClick,
     required this.onShowAllClick,
   });
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    if (items != null) {
+      return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          ItemTitle(title: "Categories", showText: true ,onPressed: onShowAllClick),
+          ItemTitle(
+              title: "Categories",
+              showText: true,
+              onPressed: () {
+                onShowAllClick(items!);
+              }),
           SizedBox(
               height: 150,
               child: _ListCategory(
-                items: items,
-                onPressed: onItemOnClick,
+                items: items!,
               ))
         ],
-    );
+      );
+    } else {
+      return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        ItemTitle(title: "Categories", showText: false, onPressed: () {}),
+        SizedBox(height: 150)
+      ]);
+    }
   }
 }
 
 class _ListCategory extends StatelessWidget {
   final List<Category> items;
-  final Function(String categoryId) onPressed;
 
-  const _ListCategory({required this.items, required this.onPressed});
+  const _ListCategory({required this.items});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: items.take(8).length,
@@ -49,7 +55,7 @@ class _ListCategory extends StatelessWidget {
           var item = items[index];
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: _Category(item: item, onPressed: onPressed),
+            child: _Category(item: item),
           );
         });
   }
@@ -57,31 +63,24 @@ class _ListCategory extends StatelessWidget {
 
 class _Category extends StatelessWidget {
   final Category item;
-  final Function(String categoryId) onPressed;
 
-  const _Category({required this.item, required this.onPressed});
+  const _Category({required this.item});
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return GestureDetector(
-      onTap: () {
-        onPressed(item.id!);
-      },
-      child: SizedBox(
-        height: 100,
-        width: 100,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(child: HomeImage(url: item.icons)),
-            Text(
-              item.name!,
-              style: Theme.of(context).textTheme.bodyMedium,
-            )
-          ],
-        ),
-      )
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(child: HomeImage(url: item.icons)),
+          Text(
+            item.name!,
+            style: Theme.of(context).textTheme.bodyMedium,
+          )
+        ],
+      ),
     );
   }
 }

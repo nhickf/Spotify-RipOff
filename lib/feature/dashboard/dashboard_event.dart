@@ -10,10 +10,3 @@ final class OnFavoritesChanges extends DashboardEvent{
 
   OnFavoritesChanges({required this.favoriteResponse});
 }
-
-
-final class OnCategorySelected extends DashboardEvent {
-  final String categoryId;
-
-  OnCategorySelected({required this.categoryId});
-}

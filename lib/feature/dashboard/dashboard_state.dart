@@ -13,8 +13,6 @@ class DashboardState with _$DashboardState {
   factory DashboardState({
     @Default(false) bool isLoading,
     @Default('sv_SE') String locale,
-    @Default(30) int limit,
-    @Default(0) int offset,
     List<Category>? categories,
     PlayLists? playList,
     List<Album>? albums,

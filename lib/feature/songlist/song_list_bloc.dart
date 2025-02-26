@@ -38,7 +38,7 @@ class SongListBloc extends Bloc<SongListEvent, SongListState> {
     });
 
     on<OnFetchAlbumTracks>((event, emit) async {
-      emit(SongListState(isLoading: true , favorites: state.favorites));
+      emit(state.copyWith(isLoading: true , favorites: state.favorites));
       final ids = (event.album.tracks?.item as List<Track>).map((track) {
         return track.id;
       }).join(",");
@@ -52,7 +52,9 @@ class SongListBloc extends Bloc<SongListEvent, SongListState> {
               description: event.album.id!,
               coverImage: event.album.image!,
               tracks: response.data,
-              isLoading: false));
+              isLoading: false,
+            error: null
+          ));
           break;
         case Failure():
           emit(state.copyWith(error: response.message, isLoading: false));
@@ -66,7 +68,7 @@ class SongListBloc extends Bloc<SongListEvent, SongListState> {
 
 
     on<OnFetchArtistTracks>((event, emit) async {
-      emit(SongListState(isLoading: true, favorites: state.favorites));
+      emit(state.copyWith(isLoading: true, favorites: state.favorites));
 
       final response = await _repository.getArtistTracks(event.artist.id!);
 

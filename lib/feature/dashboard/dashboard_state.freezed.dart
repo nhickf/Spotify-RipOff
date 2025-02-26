@@ -18,8 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DashboardState {
   bool get isLoading => throw _privateConstructorUsedError;
   String get locale => throw _privateConstructorUsedError;
-  int get limit => throw _privateConstructorUsedError;
-  int get offset => throw _privateConstructorUsedError;
   List<Category>? get categories => throw _privateConstructorUsedError;
   PlayLists? get playList => throw _privateConstructorUsedError;
   List<Album>? get albums => throw _privateConstructorUsedError;
@@ -43,8 +41,6 @@ abstract class $DashboardStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       String locale,
-      int limit,
-      int offset,
       List<Category>? categories,
       PlayLists? playList,
       List<Album>? albums,
@@ -73,8 +69,6 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
   $Res call({
     Object? isLoading = null,
     Object? locale = null,
-    Object? limit = null,
-    Object? offset = null,
     Object? categories = freezed,
     Object? playList = freezed,
     Object? albums = freezed,
@@ -91,14 +85,6 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as String,
-      limit: null == limit
-          ? _value.limit
-          : limit // ignore: cast_nullable_to_non_nullable
-              as int,
-      offset: null == offset
-          ? _value.offset
-          : offset // ignore: cast_nullable_to_non_nullable
-              as int,
       categories: freezed == categories
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -166,8 +152,6 @@ abstract class _$$DashboardStateImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       String locale,
-      int limit,
-      int offset,
       List<Category>? categories,
       PlayLists? playList,
       List<Album>? albums,
@@ -196,8 +180,6 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? locale = null,
-    Object? limit = null,
-    Object? offset = null,
     Object? categories = freezed,
     Object? playList = freezed,
     Object? albums = freezed,
@@ -214,14 +196,6 @@ class __$$DashboardStateImplCopyWithImpl<$Res>
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
               as String,
-      limit: null == limit
-          ? _value.limit
-          : limit // ignore: cast_nullable_to_non_nullable
-              as int,
-      offset: null == offset
-          ? _value.offset
-          : offset // ignore: cast_nullable_to_non_nullable
-              as int,
       categories: freezed == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
@@ -256,8 +230,6 @@ class _$DashboardStateImpl implements _DashboardState {
   _$DashboardStateImpl(
       {this.isLoading = false,
       this.locale = 'sv_SE',
-      this.limit = 30,
-      this.offset = 0,
       final List<Category>? categories,
       this.playList,
       final List<Album>? albums,
@@ -275,12 +247,6 @@ class _$DashboardStateImpl implements _DashboardState {
   @override
   @JsonKey()
   final String locale;
-  @override
-  @JsonKey()
-  final int limit;
-  @override
-  @JsonKey()
-  final int offset;
   final List<Category>? _categories;
   @override
   List<Category>? get categories {
@@ -328,7 +294,7 @@ class _$DashboardStateImpl implements _DashboardState {
 
   @override
   String toString() {
-    return 'DashboardState(isLoading: $isLoading, locale: $locale, limit: $limit, offset: $offset, categories: $categories, playList: $playList, albums: $albums, artists: $artists, favorites: $favorites, error: $error)';
+    return 'DashboardState(isLoading: $isLoading, locale: $locale, categories: $categories, playList: $playList, albums: $albums, artists: $artists, favorites: $favorites, error: $error)';
   }
 
   @override
@@ -339,8 +305,6 @@ class _$DashboardStateImpl implements _DashboardState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.locale, locale) || other.locale == locale) &&
-            (identical(other.limit, limit) || other.limit == limit) &&
-            (identical(other.offset, offset) || other.offset == offset) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             (identical(other.playList, playList) ||
@@ -357,8 +321,6 @@ class _$DashboardStateImpl implements _DashboardState {
       runtimeType,
       isLoading,
       locale,
-      limit,
-      offset,
       const DeepCollectionEquality().hash(_categories),
       playList,
       const DeepCollectionEquality().hash(_albums),
@@ -380,8 +342,6 @@ abstract class _DashboardState implements DashboardState {
   factory _DashboardState(
       {final bool isLoading,
       final String locale,
-      final int limit,
-      final int offset,
       final List<Category>? categories,
       final PlayLists? playList,
       final List<Album>? albums,
@@ -393,10 +353,6 @@ abstract class _DashboardState implements DashboardState {
   bool get isLoading;
   @override
   String get locale;
-  @override
-  int get limit;
-  @override
-  int get offset;
   @override
   List<Category>? get categories;
   @override

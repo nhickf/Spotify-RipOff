@@ -1,8 +1,5 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/core/network/response.dart';
-import 'package:spotify/data/mapper/mapper.dart';
-import 'package:spotify/data/model/category.dart';
 import 'package:spotify/data/repository/data_repository.dart';
 import 'package:spotify/feature/dashboard/dashboard_event.dart';
 import 'package:spotify/feature/dashboard/dashboard_state.dart';
@@ -16,8 +13,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     on<Refresh>(_onFetchInitialData);
 
-    on<OnCategorySelected>(_onCategorySelected);
-
     on<OnFavoritesChanges>(_onFavoritesChanges);
   }
 
@@ -27,7 +22,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     switch (favoritesResponse) {
       case Success():
         emit(state.copyWith(
-            isLoading: false, favorites: favoritesResponse.data));
+            isLoading: false, favorites: favoritesResponse.data, error: null));
         break;
       case Failure():
         emit(state.copyWith(
@@ -49,10 +44,11 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
   void _onFetchInitialData(
       DashboardEvent event, Emitter<DashboardState> emit) async {
+    emit(state.copyWith(isLoading: true));
     final response = await _repository.getBrowseCategory(
       state.locale,
-      state.limit,
-      state.offset,
+      30,
+      0,
     );
 
     final albumResponse = await _repository.getAlbums(
@@ -69,8 +65,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     switch (artistResponse) {
       case Success():
-        var data = artistResponse.data!.transform;
-        emit(state.copyWith(isLoading: false, artists: data));
+        var data = artistResponse.data!;
+        emit(state.copyWith(artists: data, error: null));
         break;
       case Failure():
         emit(state.copyWith(
@@ -89,8 +85,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     switch (albumResponse) {
       case Success():
-        var data = albumResponse.data!.transform;
-        emit(state.copyWith(isLoading: false, albums: data));
+        var data = albumResponse.data!;
+        emit(state.copyWith( albums: data, error: null));
         break;
       case Failure():
         emit(state.copyWith(
@@ -109,12 +105,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     switch (response) {
       case Success():
-        var data = response.data!.transform;
-        emit(state.copyWith(
-            isLoading: false,
-            offset: data.offset,
-            limit: data.limit,
-            categories: data.item as List<Category>));
+        var data = response.data!;
+        emit(state.copyWith(isLoading: false, categories: data, error: null));
         break;
       case Failure():
         emit(state.copyWith(
@@ -124,29 +116,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         break;
       case Exception():
         emit(state.copyWith(
-          isLoading: false,
-          error: Error(message: response.exception.toString(), status: 0),
-        ));
-        break;
-    }
-  }
-
-  void _onCategorySelected(
-      OnCategorySelected event, Emitter<DashboardState> emit) async {
-    final response = await _repository.getPlayLists(
-        event.categoryId, state.limit, state.offset);
-
-    switch (response) {
-      case Success():
-        emit(state.copyWith.call(isLoading: false, playList: response.data));
-        break;
-      case Failure():
-        emit(state.copyWith.call(
-            isLoading: false,
-            error: Error(message: response.message, status: response.code)));
-        break;
-      case Exception():
-        emit(state.copyWith.call(
           isLoading: false,
           error: Error(message: response.exception.toString(), status: 0),
         ));

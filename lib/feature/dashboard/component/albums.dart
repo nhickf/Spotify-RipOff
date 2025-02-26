@@ -25,7 +25,10 @@ class Albums extends StatelessWidget {
         ],
       );
     } else {
-      return Text("No albums");
+      return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        ItemTitle(title: "Albums", showText: false, onPressed: () {}),
+        SizedBox(height: 150)
+      ]);
     }
   }
 }
@@ -64,30 +67,26 @@ class _AlbumItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return GestureDetector(
-      onTap: () {
-        onPressed();
-      },
-      child: SizedBox(
-        height: 100,
-        width: 100,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(child: HomeImage(url: item.image)),
-            Text(
-              item.label!,
-              textAlign: TextAlign.start,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-          ],
-        ),
-      )
-    );
+        onTap: () {
+          onPressed();
+        },
+        child: SizedBox(
+          height: 100,
+          width: 100,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(child: HomeImage(url: item.image)),
+              Text(
+                item.label!,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ));
   }
 }

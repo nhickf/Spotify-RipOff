@@ -20,8 +20,12 @@ class SongListScreen extends StatelessWidget {
           alignment: Alignment.center,
           child: CircularProgressIndicator(),
         );
-      } else {
-        if (state.tracks != null && state.tracks!.isNotEmpty) {
+      } else if (state.error != null) {
+        return Container(
+          alignment: Alignment.center,
+          child: Text(state.error!),
+        );
+      } else if (state.tracks != null && state.tracks?.isNotEmpty == true) {
           return CustomScrollView(slivers: [
             SliverAppBar(
               expandedHeight: 200,
@@ -42,12 +46,11 @@ class SongListScreen extends StatelessWidget {
               favorites: state.favorites,
             )
           ]);
-        } else {
-          return Container(
-            alignment: Alignment.center,
-            child: Text("Track not found"),
-          );
-        }
+      } else {
+        return Container(
+          alignment: Alignment.center,
+          child: Text("Track not found"),
+        );
       }
     }));
   }

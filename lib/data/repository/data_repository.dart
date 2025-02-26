@@ -1,38 +1,27 @@
 import 'package:spotify/core/network/response.dart';
 import 'package:spotify/data/mapper/mapper.dart';
+import 'package:spotify/data/model/album.dart';
+import 'package:spotify/data/model/artist.dart';
+import 'package:spotify/data/model/category.dart';
 import 'package:spotify/data/model/favorite.dart';
 import 'package:spotify/data/model/track.dart';
-import 'package:spotify/data/source/api_service/response/albums.dart';
-import 'package:spotify/data/source/api_service/response/artists.dart';
-import 'package:spotify/data/source/api_service/response/browse_category.dart';
-import 'package:spotify/data/source/api_service/response/playlists.dart';
 import 'package:spotify/data/source/api_service/service.dart';
 import 'package:spotify/data/source/database/dao/favorite_dao.dart';
 
 abstract class IDataRepository {
-  Future<DataResponse<BrowseCategory>> getBrowseCategory(
-    String locale,
-    int limit,
-    int offset,
-  );
+  Future<DataResponse<List<Category>>> getBrowseCategory(String locale,
+      int limit,
+      int offset,);
 
-  Future<DataResponse<Albums>> getAlbums(
-    String market,
-    String listOfIds,
-  );
+  Future<DataResponse<List<Album>>> getAlbums(String market,
+      String listOfIds,);
 
-  Future<DataResponse<PlayLists>> getPlayLists(
-    String categoryId,
-    int limit,
-    int offset,
-  );
 
-  Future<DataResponse<Artists>> getArtists(String listOfIds);
+  Future<DataResponse<List<Artist>>> getArtists(String listOfIds);
 
   Future<DataResponse<List<Track>>> getTracks(String listOfIds);
 
   Future<DataResponse<List<Track>>> getArtistTracks(String id);
-
 
 
   Stream<DataResponse<List<Favorite>>> getFavorites();
@@ -49,26 +38,51 @@ class DataRepositoryImpl extends IDataRepository {
   DataRepositoryImpl({required this.apiService, required this.dao});
 
   @override
-  Future<DataResponse<Albums>> getAlbums(
-      String market, String listOfIds) async {
-    return apiService.getSeveralAlbums(listOfIds, market);
+  Future<DataResponse<List<Album>>> getAlbums(String market,
+      String listOfIds) async {
+    final response = await apiService.getSeveralAlbums(listOfIds, market);
+    switch (response) {
+      case Success():
+        return Success(response.data?.transform);
+      case Failure():
+        return Failure(response.message, response.code);
+      case Exception():
+        return Exception(response.exception);
+      default :
+        return Success(List.empty());
+    }
   }
 
   @override
-  Future<DataResponse<Artists>> getArtists(String listOfIds) async {
-    return apiService.getSeveralArtists(listOfIds);
+  Future<DataResponse<List<Artist>>> getArtists(String listOfIds) async {
+    final response = await apiService.getSeveralArtists(listOfIds);
+    switch (response) {
+      case Success():
+        return Success(response.data?.transform);
+      case Failure():
+        return Failure(response.message, response.code);
+      case Exception():
+        return Exception(response.exception);
+      default :
+        return Success(List.empty());
+    }
   }
 
   @override
-  Future<DataResponse<BrowseCategory>> getBrowseCategory(
-      String locale, int limit, int offset) async {
-    return apiService.getBrowseCategory(locale, limit, offset);
-  }
+  Future<DataResponse<List<Category>>> getBrowseCategory(String locale,
+      int limit, int offset) async {
+    final response = await apiService.getBrowseCategory(locale, limit, offset);
 
-  @override
-  Future<DataResponse<PlayLists>> getPlayLists(
-      String categoryId, int limit, int offset) async {
-    return apiService.getPlayLists(categoryId);
+    switch (response) {
+      case Success():
+        return Success(response.data?.transform.item as List<Category>);
+      case Failure():
+        return Failure(response.message, response.code);
+      case Exception():
+        return Exception(response.exception);
+      default :
+        return Success(List.empty());
+    }
   }
 
   @override
@@ -106,8 +120,9 @@ class DataRepositoryImpl extends IDataRepository {
         return Failure(response.message, response.code);
       case Exception():
         return Exception(response.exception);
+      default :
+        return Success(List<Track>.empty());
     }
-    return Success(List<Track>.empty());
   }
 
   @override

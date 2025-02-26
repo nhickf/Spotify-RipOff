@@ -25,7 +25,10 @@ class Artists extends StatelessWidget {
         ],
       );
     } else {
-      return Text("No albums");
+      return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        ItemTitle(title: "Artists", showText: false, onPressed: () {}),
+        SizedBox(height: 150)
+      ]);
     }
   }
 }
