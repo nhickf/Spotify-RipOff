@@ -2,6 +2,19 @@
 
 This Flutter application is a demonstration of a Spotify client, built using a robust and modern architecture. It showcases best practices for state management, data persistence, and API integration.
 
+## ScreenShots
+![image](https://github.com/user-attachments/assets/9a2f3885-f49b-403d-a725-52b0cab9b516) ![image](https://github.com/user-attachments/assets/f488f8bd-1ce8-4691-ab53-3562d2b4b969) ![image](https://github.com/user-attachments/assets/4527e066-dfdb-492a-b105-9c920d1fb0de)
+![image](https://github.com/user-attachments/assets/fafb7903-1729-4921-b8f4-419bd36891a5) ![image](https://github.com/user-attachments/assets/47082385-ee85-49ca-8a6f-79de22e614ec) ![image](https://github.com/user-attachments/assets/154b0791-101a-487d-b40b-f007704d665b)
+
+
+
+
+
+
+
+
+
+
 ## Tech Stack
 
 * **Flutter:** Cross-platform mobile development framework.
@@ -82,3 +95,5 @@ Run the following command to generate code:
 
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
+
+
