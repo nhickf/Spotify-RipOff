@@ -36,10 +36,12 @@ class CategoryListScreen extends StatelessWidget {
             )
           ],
         ),
-        body: _CategoryListContent(
-          categoryList: categoryList,
-          onListPressed: () {},
-          onGridPressed: () {},
+        body: SafeArea(
+          child: _CategoryListContent(
+            categoryList: categoryList,
+            onListPressed: () {},
+            onGridPressed: () {},
+          ),
         ));
   }
 }
@@ -127,23 +129,23 @@ class _CategoryGrid extends StatelessWidget {
                   ),
                 ),
                 Flexible(
-                  flex: 1,
+                    flex: 1,
                     child: Text(
-                  item.name!,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.fade,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                )),
+                      item.name!,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    )),
                 Flexible(
-                  flex: 1,
+                    flex: 1,
                     child: Text(
-                  item.id!,
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ))
+                      item.id!,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ))
               ],
             ),
           ),

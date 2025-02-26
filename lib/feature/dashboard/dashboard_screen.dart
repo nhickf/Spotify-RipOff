@@ -21,19 +21,21 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      child: _DashboardContainer(
-        onNavigateToCategoryList: (categories) {
-          onNavigateOutsideDashboard(CategoryList(categories: categories));
-        },
-        onNavigateAlbumToSongList: (album) {
-          onNavigateOutsideDashboard(AlbumToSongList(album: album));
-        },
-        onNavigateArtistToSongList: (artist) {
-          onNavigateOutsideDashboard(ArtistsToSongList(artist: artist));
-        },
-        onNavigateToFavoriteList: (favorites) {
-          onNavigateOutsideDashboard(FavoriteList(favorites: favorites));
-        },
+      child: SafeArea(
+        child: _DashboardContainer(
+          onNavigateToCategoryList: (categories) {
+            onNavigateOutsideDashboard(CategoryList(categories: categories));
+          },
+          onNavigateAlbumToSongList: (album) {
+            onNavigateOutsideDashboard(AlbumToSongList(album: album));
+          },
+          onNavigateArtistToSongList: (artist) {
+            onNavigateOutsideDashboard(ArtistsToSongList(artist: artist));
+          },
+          onNavigateToFavoriteList: (favorites) {
+            onNavigateOutsideDashboard(FavoriteList(favorites: favorites));
+          },
+        ),
       ),
     );
   }
@@ -74,7 +76,6 @@ class _DashboardContainer extends StatelessWidget {
               onNavigateToFavoriteList: onNavigateToFavoriteList,
               onNavigateToCategoryList: onNavigateToCategoryList,
               onNavigateAlbumToSongList: onNavigateAlbumToSongList,
-
             ));
       },
     );
@@ -118,8 +119,7 @@ class _DashboardContent extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(error!),
       );
-    }
-    else {
+    } else {
       return SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(

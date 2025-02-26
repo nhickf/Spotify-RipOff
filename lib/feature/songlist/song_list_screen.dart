@@ -13,46 +13,54 @@ class SongListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body:
-        BlocBuilder<SongListBloc, SongListState>(builder: (context, state) {
-      if (state.isLoading) {
-        return Container(
-          alignment: Alignment.center,
-          child: CircularProgressIndicator(),
-        );
-      } else if (state.error != null) {
-        return Container(
-          alignment: Alignment.center,
-          child: Text(state.error!),
-        );
-      } else if (state.tracks != null && state.tracks?.isNotEmpty == true) {
-          return CustomScrollView(slivers: [
-            SliverAppBar(
-              expandedHeight: 200,
-              floating: false,
-              automaticallyImplyLeading: true,
-              pinned: true,
-              flexibleSpace: SongListAppBar(
-                  title: state.title, coverImage: state.coverImage),
-            ),
-            SliverToBoxAdapter(
-              child: PlayerController(
-                title: state.title,
-                description: state.description,
+    return Scaffold(
+      body: BlocBuilder<SongListBloc, SongListState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return Container(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
+            );
+          } else if (state.error != null) {
+            return Container(
+              alignment: Alignment.center,
+              child: Text(state.error!),
+            );
+          } else if (state.tracks != null && state.tracks?.isNotEmpty == true) {
+            return CustomScrollView(slivers: [
+              SliverAppBar(
+                expandedHeight: 200,
+                floating: false,
+                automaticallyImplyLeading: true,
+                pinned: true,
+                flexibleSpace: SongListAppBar(
+                    title: state.title, coverImage: state.coverImage),
               ),
-            ),
-            _SongListContainer(
-              tracks: state.tracks as List<Track>,
-              favorites: state.favorites,
-            )
-          ]);
-      } else {
-        return Container(
-          alignment: Alignment.center,
-          child: Text("Track not found"),
-        );
-      }
-    }));
+              SliverToBoxAdapter(
+                child: PlayerController(
+                  title: state.title,
+                  description: state.description,
+                ),
+              ),
+
+              SliverSafeArea(
+                  top: false,
+                  sliver: _SongListContainer(
+                tracks: state.tracks as List<Track>,
+                favorites: state.favorites,
+              ))
+
+
+            ]);
+          } else {
+            return Container(
+              alignment: Alignment.center,
+              child: Text("Track not found"),
+            );
+          }
+        },
+      ),
+    );
   }
 }
 

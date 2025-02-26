@@ -35,10 +35,12 @@ class FavoriteListScreen extends StatelessWidget {
             )
           ],
         ),
-        body: _CategoryListContent(
-          favoriteList: favoriteList,
-          onListPressed: () {},
-          onGridPressed: () {},
+        body: SafeArea(
+          child: _CategoryListContent(
+            favoriteList: favoriteList,
+            onListPressed: () {},
+            onGridPressed: () {},
+          ),
         ));
   }
 }
